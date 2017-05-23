@@ -1,7 +1,7 @@
 class AuthenticateUser
   prepend SimpleCommand
   
-  def initialize(email, password
+  def initialize(email, password)
     @email = email
     @password = password
   end
@@ -10,7 +10,9 @@ class AuthenticateUser
     JsonWebToken.encode(user_id: user.id) if user
   end
   
-  private attr_accessor :email, :password
+  private
+
+  attr_accessor :email, :password
   
   def user
     user = User.find_by_email(email)
