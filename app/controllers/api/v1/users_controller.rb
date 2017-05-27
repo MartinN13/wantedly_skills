@@ -1,9 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   def index
-    @users = User.all
+    @user = User.all
+    render json: @user
+  end
 
-    respond_to do |format|
-      format.json { render json: @users }
-    end
+  def show
+    @user = User.find(params[:id])
+    render json: @user.to_json(include: {skills: {only: [:name]}})
   end
 end
