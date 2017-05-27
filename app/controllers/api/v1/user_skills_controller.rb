@@ -1,6 +1,11 @@
 class Api::V1::UserSkillsController < ApplicationController
   def create
-    @user_skill = UserSkill.new(skill_params)
+    @user_id = User.find_by name: skill_params[:user_name]
+    puts 'current user is: '
+    puts @current_user[:id]
+
+    @user_skill = UserSkill.new()
+    
     respond_to do |format|
       format.json do 
         if @user_skill.save
@@ -10,16 +15,11 @@ class Api::V1::UserSkillsController < ApplicationController
         end
       end
     end
-    if @skill.save
-
-    else
-      # Error
-    end
   end
 
   private
 
     def skill_params
-      params.require(:user).permit(:user_id, :skill_id)
+      params.permit(:format, :user_name, :skill_name)
     end
 end

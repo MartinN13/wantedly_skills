@@ -7,6 +7,7 @@ class Profile extends React.Component {
     };
   }
   componentDidMount() {
+    console.log(this.props.url);
     $.ajax({
       url: this.props.url,
       beforeSend(xhr) { 
@@ -15,7 +16,7 @@ class Profile extends React.Component {
       dataType: 'json',
       success: result => {
         this.setState({userInfo: <UserInfo user={result} />});
-        this.setState({userSkills: <UserSkills skills={result.skills} />});
+        this.setState({userSkills: <UserSkills skills={result.skills} email={result.email}/>});
       },
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
