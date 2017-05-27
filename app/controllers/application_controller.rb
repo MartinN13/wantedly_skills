@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  # Disable csrf protection
+  protect_from_forgery with: :null_session
+
+  # Authenticate every request
   before_action :authenticate_request
     attr_reader :current_user
     

@@ -3,8 +3,6 @@ class UserSkills extends React.Component {
     super(props);
     this.state = {
       skills: this.props.skills,
-      skill: '',
-      buttonText: 'Add skill',
       addSkills: false,
       value: '',
       errors: {}
@@ -19,7 +17,6 @@ class UserSkills extends React.Component {
       $.ajax({
         method: 'POST',
         data: {
-          user_name: this.props.email,
           skill_name: this.state.value
         },
         url: '/api/v1/user_skills',
@@ -28,7 +25,8 @@ class UserSkills extends React.Component {
         },
         dataType: 'json',
         success: result => {
-          console.log(result);
+          this.setState({skills: result});
+          this.setState({value: ''});
         },
         error: (xhr, status, err) => {
           console.error(this.props.url, status, err.toString());
@@ -40,14 +38,8 @@ class UserSkills extends React.Component {
   }
   cancelSkills() {
     this.setState({addSkills: false});
-    this.setState({buttonText: `Add skill`});
   }
   handleInputChange(e) {
-    if (e.target.value == '') {
-      this.setState({buttonText: `Add JavaScript`});
-    } else {
-      this.setState({buttonText: `Add ${e.target.value}`});
-    }
     this.setState({value: e.target.value});
   }
   render() {
@@ -65,7 +57,7 @@ class UserSkills extends React.Component {
       if (this.state.addSkills) {
         skillInput = 
           <div className="tile tile-centered">
-            <input className="form-input" type="text" placeholder="JavaScript" onChange={this.handleInputChange}></input>
+            <input className="form-input" type="text" placeholder="JavaScript" value={this.state.value} onChange={this.handleInputChange}></input>
           </div>;
       } else {
         skillInput = null;
@@ -83,7 +75,7 @@ class UserSkills extends React.Component {
         <div className="panel-title mt-10">Skills</div>
         {skills}
         {skillInput}
-        <button onClick={this.addSkills} className="btn btn-primary">{this.state.buttonText}</button>
+        <button onClick={this.addSkills} className="btn btn-primary">Add</button>
         {cancelButton}
       </div>
     )

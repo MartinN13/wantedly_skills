@@ -1,25 +1,22 @@
 class Api::V1::UserSkillsController < ApplicationController
   def create
-    @user_id = User.find_by name: skill_params[:user_name]
-    puts 'current user is: '
-    puts @current_user[:id]
+    if Skill.where(name: skill_params[:skill_name]).exists?
+      @skill_id = Skill.where(name: skill_params[:skill_name]).pluck(:id)
+      @user_skill = UserSkill.new(user_id: @current_user[:id], skill_id: @skill_id[0])
 
-    @user_skill = UserSkill.new()
-    
-    respond_to do |format|
-      format.json do 
-        if @user_skill.save
-          render json: @user_skill
-        else
-          render json: { :errors => @user_skill.errors.messages }, :status => 422
-        end
+      if @user_skill.save
+        render json: @current_user.skills
+      else
+        render json: {:errors => @user_skill.errors.messages}, :status => 422
       end
+    else
+      puts 'No record found'
     end
   end
 
   private
 
     def skill_params
-      params.permit(:format, :user_name, :skill_name)
+      params.permit(:skill_name, :format, :controller, :action)
     end
 end
