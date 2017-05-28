@@ -6,10 +6,10 @@ class SiteController < ApplicationController
       if User.exists? id: params[:id]
         render component: 'Profile', props: {url: '/api/v1/users/' + params[:id]}
       else
-        render component: 'Login', props: {url: '/login'}
+        render component: 'Login', props: {url: '/authenticate'}
       end
     else
-      render component: 'Login', props: {url: '/login'}
+      render component: 'Login', props: {url: '/authenticate'}
     end
   end
   def users

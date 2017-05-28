@@ -9,6 +9,7 @@ class UserSkills extends React.Component {
     };
 
   this.addSkills = this.addSkills.bind(this);
+  this.removeSkills = this.removeSkills.bind(this);
   this.cancelSkills = this.cancelSkills.bind(this);
   this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -21,7 +22,7 @@ class UserSkills extends React.Component {
         },
         url: '/api/v1/user_skills',
         beforeSend(xhr) { 
-          xhr.setRequestHeader('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE0OTU5NTc1NzR9.5a06nmdcFmbbvAqw6AVR7fWIiNR8u5_KcnFcWHZstEk'); 
+          xhr.setRequestHeader('Authorization', window.localStorage.getItem('auth_token'));
         },
         dataType: 'json',
         success: result => {
@@ -36,6 +37,26 @@ class UserSkills extends React.Component {
       this.setState({addSkills: true});
     }
   }
+  removeSkills(e) {
+    $.ajax({
+      method: 'DELETE',
+      data: {
+        skill_name: e.target.parentElement.textContent
+      },
+      url: '/api/v1/user_skills',
+      beforeSend(xhr) { 
+        xhr.setRequestHeader('Authorization', window.localStorage.getItem('auth_token'));
+      },
+      dataType: 'json',
+      success: result => {
+        console.log(result);
+        this.setState({skills: result});
+      },
+      error: (xhr, status, err) => {
+        console.error(status, err.toString());
+      }
+    });
+  }
   cancelSkills() {
     this.setState({addSkills: false});
   }
@@ -47,7 +68,7 @@ class UserSkills extends React.Component {
       return (
         <div key={index} className="tile tile-centered">
           <label className="chip">{skill.name}
-            <button className="btn btn-clear"></button>
+            <button className="btn btn-clear" onClick={this.removeSkills}></button>
           </label>
         </div>
       )

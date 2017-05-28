@@ -9,7 +9,7 @@ class Users extends React.Component {
     $.ajax({
       url: this.props.url,
       beforeSend(xhr) { 
-        xhr.setRequestHeader('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE0OTU5NTc1NzR9.5a06nmdcFmbbvAqw6AVR7fWIiNR8u5_KcnFcWHZstEk'); 
+        xhr.setRequestHeader('Authorization', window.localStorage.getItem('auth_token')); 
       },
       dataType: 'json',
       success: result => {

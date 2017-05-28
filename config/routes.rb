@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     namespace :v1  do
       # User API routes
       resources :users
-      resources :user_skills
+      post 'user_skills', to: 'user_skills#create'
+      delete 'user_skills', to: 'user_skills#destroy'
     end
   end
 end

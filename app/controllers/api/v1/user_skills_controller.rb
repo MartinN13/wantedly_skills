@@ -10,8 +10,25 @@ class Api::V1::UserSkillsController < ApplicationController
         render json: {:errors => @user_skill.errors.messages}, :status => 422
       end
     else
-      puts 'No record found'
+      puts 'Skill not found!'
     end
+  end
+
+  def destroy
+    # Remove skill from user
+    if Skill.where(name: skill_params[:skill_name]).exists?
+      @skill_id = Skill.where(name: skill_params[:skill_name]).pluck(:id)
+
+      if UserSkill.where(user_id: @current_user[:id], skill_id: @skill_id[0]).destroy_all
+        render json: @current_user.skills
+      else
+        puts "Couldn't destroy!"
+      end
+    else
+      puts 'Skill not found!'
+    end
+
+    # Remove all endorsements
   end
 
   private
