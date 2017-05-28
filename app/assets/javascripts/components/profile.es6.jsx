@@ -2,6 +2,7 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      navbar: '',
       userInfo: '',
       userSkills: ''
     };
@@ -14,8 +15,9 @@ class Profile extends React.Component {
       },
       dataType: 'json',
       success: result => {
+        this.setState({navbar: <Navbar user={result} />});
         this.setState({userInfo: <UserInfo user={result} />});
-        this.setState({userSkills: <UserSkills skills={result.skills} />});
+        this.setState({userSkills: <UserSkills user={result} skills={result.skills} />});
       },
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
@@ -24,11 +26,17 @@ class Profile extends React.Component {
   }
   render() {
     return (
-      <div className="profile column col-12">
-        <div className="panel">
-          {this.state.userInfo}
-          {this.state.userSkills}
-        </div>
-      </div>);
+      <div className="content">
+        {this.state.navbar}
+        <section className="section-profile">
+          <div className="profile column col-12">
+            <div className="panel">
+              {this.state.userInfo}
+              {this.state.userSkills}
+            </div>
+          </div>
+        </section>
+      </div>
+    );
   }
 }
