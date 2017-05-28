@@ -4,6 +4,7 @@ class UserSkills extends React.Component {
     this.state = {
       user: this.props.user,
       skills: this.props.skills,
+      endorsements: this.props.endorsements,
       addSkills: false,
       value: '',
       error: ''
@@ -54,7 +55,6 @@ class UserSkills extends React.Component {
       },
       dataType: 'json',
       success: result => {
-        console.log(result);
         this.setState({skills: result});
       },
       error: (result, xhr, status) => {
@@ -76,6 +76,7 @@ class UserSkills extends React.Component {
     let skills = this.state.skills.map((skill, index) => {
       return (
         <div key={index} className="tile tile-centered">
+          <UserEndorsementCount endorsements={this.state.endorsements} />
           <label className="chip">{skill.name}
             <button className="btn btn-clear" onClick={this.removeSkills}></button>
           </label>

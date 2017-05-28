@@ -15,9 +15,10 @@ class Profile extends React.Component {
       },
       dataType: 'json',
       success: result => {
-        this.setState({navbar: <Navbar user={result} />});
-        this.setState({userInfo: <UserInfo user={result} />});
-        this.setState({userSkills: <UserSkills user={result} skills={result.skills} />});
+        this.setState({navbar: <Navbar user={result.user} />});
+        this.setState({userInfo: <UserInfo user={result.user} />});
+        this.setState({userSkills: <UserSkills user={result.user} skills={result.skills} 
+                                               endorsements={result.endorsements}/>});
       },
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());

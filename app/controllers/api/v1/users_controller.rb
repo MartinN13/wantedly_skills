@@ -7,8 +7,13 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    render json: @user.to_json(include: {skills: {only: [:name]}})
+    @user = User.includes(:skills).find(params[:id])
+    @skills = @user.skills
+    @endorsements = Endorsement.where(user_id: params[:id])
+    
+    render :json => {:user => @user,
+                     :skills => @skills,
+                     :endorsements => @endorsements}
   end
 
   def new
