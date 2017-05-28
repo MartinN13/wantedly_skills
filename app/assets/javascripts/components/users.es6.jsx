@@ -29,7 +29,18 @@ class Users extends React.Component {
     return (
       <div className="users">
         <h1>Users</h1>
-        {this.state.users}
+        <table className="table table-striped table-hover user">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>email</th>
+              </tr>
+          </thead>
+          <tbody>
+            {this.state.users}
+          </tbody>
+        </table>
       </div>
     )
   }
