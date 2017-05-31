@@ -7,9 +7,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:skills).find(params[:id])
+    @user = User.includes(:skills, :endorsements).find(params[:id])
     @skills = @user.skills
-    @endorsements = Endorsement.where(user_id: params[:id])
+    @endorsements = @user.endorsements
     
     render :json => {:user => @user,
                      :skills => @skills,
