@@ -37,15 +37,13 @@ class Login extends React.Component {
     });
   }
   render () {
-    let loggedIn = null;
-    if (this.state.loggedIn) {
-      loggedIn = <Profile />
-    } else {
-      loggedIn = <LoginForm email={this.state.email} password={this.state.password} url={this.props.url} />
-    }
     return (
       <div>
-        {loggedIn}
+        {this.state.loggedIn ? (
+          <Profile />
+          ) : (
+          <LoginForm email={this.state.email} password={this.state.password} url={this.props.url} />
+        )}
       </div>
     )
   }

@@ -2,9 +2,9 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      navbar: '',
-      userInfo: '',
-      userSkills: ''
+      user: '',
+      skills: '',
+      endorsements: ''
     };
   }
   componentDidMount() {
@@ -15,10 +15,9 @@ class Profile extends React.Component {
       },
       dataType: 'json',
       success: result => {
-        this.setState({navbar: <Navbar user={result.user} />});
-        this.setState({userInfo: <UserInfo user={result.user} />});
-        this.setState({userSkills: <UserSkills user={result.user} skills={result.skills} 
-                                               endorsements={result.endorsements}/>});
+        this.setState({user: result.user});
+        this.setState({skills: result.skills});
+        this.setState({endorsements: result.endorsements});
       },
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
@@ -26,18 +25,25 @@ class Profile extends React.Component {
     });
   }
   render() {
-    return (
-      <div className="content">
-        {this.state.navbar}
-        <section className="section-profile">
-          <div className="profile column col-12">
-            <div className="panel">
-              {this.state.userInfo}
-              {this.state.userSkills}
+    /* return when ajax call and setState is finished */
+    if (this.state.endorsements.length !== 0) {
+      return (
+        <div className="content">
+          <Navbar user={this.state.user} />
+          <section className="section-profile">
+            <div className="profile column col-12">
+              <div className="panel">
+                <UserInfo user={this.state.user} />
+                <UserSkills user={this.state.user} skills={this.state.skills} endorsements={this.state.endorsements} />
+              </div>
             </div>
-          </div>
-        </section>
-      </div>
-    );
+          </section>
+        </div>
+      );
+    } else {
+      return (
+        <div></div>
+      );
+    }
   }
 }

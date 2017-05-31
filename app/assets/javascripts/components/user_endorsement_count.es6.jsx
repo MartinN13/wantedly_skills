@@ -1,11 +1,7 @@
 class UserEndorsementCount extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      endorsements: this.props.endorsements
-    }
-  }
   render () {
+    console.log(this.props.skill);
+    console.log(this.props.endorsements);
     return (
       <div></div>
     )

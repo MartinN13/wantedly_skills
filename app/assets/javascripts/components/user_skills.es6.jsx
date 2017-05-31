@@ -76,49 +76,33 @@ class UserSkills extends React.Component {
     let skills = this.state.skills.map((skill, index) => {
       return (
         <div key={index} className="tile tile-centered">
-          <UserEndorsementCount endorsements={this.state.endorsements} />
+          <UserEndorsementCount skill={skill} endorsements={this.state.endorsements} />
           <label className="chip">{skill.name}
             <button className="btn btn-clear" onClick={this.removeSkills}></button>
           </label>
         </div>
       )
     });
-
-    let skillInput = null;
-      if (this.state.addSkills) {
-        skillInput = 
-          <div className="tile tile-centered">
-            <input className="form-input" type="text" placeholder="JavaScript" value={this.state.value} onChange={this.handleInputChange}></input>
-          </div>;
-      } else {
-        skillInput = null;
-      }
-    let cancelButton = null;
-      if (this.state.addSkills) {
-        cancelButton = 
-          <button onClick={this.cancelSkills} className="btn btn-link">Cancel</button>
-      } else {
-        cancelButton = null;
-      }
-    let errorToast = null;
-      if (this.state.error) {
-        errorToast = 
-          <div className="toast toast-error">
-            <button className="btn btn-clear float-right" onClick={this.handleError}></button>
-            {this.state.error}
-          </div>
-      } else {
-        errorToast = null;
-      }
   
     return (
       <div className="panel-body">
         <div className="panel-title mt-10">Skills</div>
-        {errorToast}
+        {this.state.error && 
+          <div className="toast toast-error">
+            <button className="btn btn-clear float-right" onClick={this.handleError}></button>
+            {this.state.error}
+          </div>
+        }
         {skills}
-        {skillInput}
+        {this.state.addSkills &&
+          <div className="tile tile-centered">
+            <input className="form-input" type="text" placeholder="JavaScript" value={this.state.value} onChange={this.handleInputChange}></input>
+          </div>
+        }
         <button onClick={this.addSkills} className="btn btn-primary">Add</button>
-        {cancelButton}
+        {this.state.addSkills && 
+          <button onClick={this.cancelSkills} className="btn btn-link">Cancel</button>
+        }
       </div>
     )
   }
