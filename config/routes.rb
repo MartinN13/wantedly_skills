@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   # Root
-  root 'site#profile'
+  root 'site#index'
 
   # Site routes
   get 'users', to: 'site#users'
-  get 'users/:id', to: 'site#profile'
+  get 'users/:id', to: 'site#index'
 
   # Authenticate users
   post 'authenticate', to: 'authentication#authenticate'
@@ -12,10 +12,11 @@ Rails.application.routes.draw do
   # API routes
   namespace :api, format: 'json' do
     namespace :v1  do
-      # User API routes
+      # API routes
       resources :users
       post 'user_skills', to: 'user_skills#create'
       delete 'user_skills', to: 'user_skills#destroy'
+      get '/profile', to: 'users#profile'
     end
   end
 end

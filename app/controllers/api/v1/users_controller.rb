@@ -1,6 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authenticate_request, :only => [:show]
-  
   def index
     @users = User.all
     render json: @users.to_json
@@ -13,6 +11,7 @@ class Api::V1::UsersController < ApplicationController
     @endorsements = @user.endorsements
     
     render :json => {:user => @user,
+                     :currentUser => @current_user,
                      :skills => @skills,
                      :userSkills => @userSkills,
                      :endorsements => @endorsements}
@@ -29,6 +28,11 @@ class Api::V1::UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def profile
+    puts @current_user.inspect
+    render json: @current_user.to_json
   end
 
   private

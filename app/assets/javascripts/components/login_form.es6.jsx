@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
   }
   render () {
     return (
-      <div class="content">
+      <div className="content">
         <Navbar />
         <div className="column col-12">
           <h1>Login</h1>
