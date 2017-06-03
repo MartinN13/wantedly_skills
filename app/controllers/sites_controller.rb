@@ -1,4 +1,4 @@
-class SiteController < ApplicationController
+class SitesController < ApplicationController
   skip_before_action :authenticate_request
 
   def index

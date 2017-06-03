@@ -4,7 +4,7 @@ class UserEndorsements extends React.Component {
 
     this.props.endorsements.forEach((endorsement, index) => {
       const userSkillId = endorsement.user_skill_id;
-      const userSkill = this.props.userSkills.filter(x => x.id === userSkillId);
+      const userSkill = this.props.userSkills.filter(userSkill => userSkill.id === userSkillId);
 
       if (userSkill[0].skill_id == this.props.skill.id) {
         endorsements.push(<UserEndorsement key={index} endorsement={endorsement} />);

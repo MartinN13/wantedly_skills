@@ -17,7 +17,7 @@ class UserEndorsement extends React.Component {
       },
       dataType: 'json',
       success: result => {
-        this.setState({name: {'data-initial': result[0][1].charAt(0)}});
+        this.setState({name: result[0][1].charAt(0)});
       },
       error: (result, xhr, status) => {
         console.error(result.responseJSON.error);
@@ -25,13 +25,11 @@ class UserEndorsement extends React.Component {
     });
   }
   render () {
-    /* get user info */
-    /* show user name initial on icon */
     /* show user full name on hover */
     /* if current user -> clicking on user icon deletes endorsement */
     return (
       <div className="tile-icon">
-        <figure className="avatar avatar-sm" {...this.state.name}></figure>
+        <figure className="avatar avatar-sm" data-initial={this.state.name}></figure>
       </div>
     )
   }
