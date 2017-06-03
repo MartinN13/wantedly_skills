@@ -11,16 +11,13 @@ class Login extends React.Component {
     }
   }
   render () {
-    return (
-      <div>
-        {this.state.loggedIn ? (
-          /* current user */
-          <Profile url={'/api/v1/users/2'} />
-          ) : (
-          <LoginForm url={this.props.url} />
-        )}
-      </div>
-    )
+    if (this.state.loggedIn) {
+      /* current user url */
+      return <Profile url={'/api/v1/users/2'} />
+    }
+    else {
+      return <LoginForm url={this.props.url} />
+    }
   }
 }
 
