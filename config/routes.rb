@@ -16,7 +16,8 @@ Rails.application.routes.draw do
       resources :users
       post 'user_skills', to: 'user_skills#create'
       delete 'user_skills', to: 'user_skills#destroy'
-      get '/profile', to: 'users#profile'
+      get 'profile', to: 'users#profile'
+      post 'user_info', to: 'users#info'
     end
   end
 end

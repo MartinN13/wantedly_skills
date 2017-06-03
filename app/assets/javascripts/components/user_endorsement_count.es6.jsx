@@ -1,5 +1,6 @@
 class UserEndorsementCount extends React.Component {
   render () {
+    /* if not current user -> click on count = add endorsement */
     let endorsementCount = 0;
 
     this.props.endorsements.forEach((endorsement, index) => {

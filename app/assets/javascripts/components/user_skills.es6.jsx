@@ -68,6 +68,7 @@ class UserSkills extends React.Component {
     this.setState({addSkills: false});
   }
   handleInputChange(e) {
+    /* implement autocomplete */
     this.setState({value: e.target.value});
   }
   handleError() {
@@ -83,6 +84,7 @@ class UserSkills extends React.Component {
               <button className="btn btn-clear" onClick={this.removeSkills}></button>
             </label>
           </div>
+          <UserEndorsements skill={skill} userSkills={this.state.userSkills} endorsements={this.state.endorsements} />
         </div>
       )
     });

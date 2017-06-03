@@ -3,6 +3,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       user: '',
+      currentUser: '',
       skills: '',
       userSkills: '',
       endorsements: '',
@@ -18,6 +19,7 @@ class Profile extends React.Component {
       dataType: 'json',
       success: result => {
         this.setState({user: result.user});
+        this.setState({currentUser: result.currentUser});
         this.setState({skills: result.skills});
         this.setState({userSkills: result.userSkills})
         this.setState({endorsements: result.endorsements});
@@ -38,7 +40,7 @@ class Profile extends React.Component {
             <div className="profile column col-12">
               <div className="panel">
                 <UserInfo user={this.state.user} />
-                <UserSkills user={this.state.user} skills={this.state.skills} 
+                <UserSkills user={this.state.user} currentUser={this.state.currentUser} skills={this.state.skills} 
                             userSkills={this.state.userSkills} endorsements={this.state.endorsements} />
               </div>
             </div>

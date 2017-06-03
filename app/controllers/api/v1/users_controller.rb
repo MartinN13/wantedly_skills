@@ -31,8 +31,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def profile
-    puts @current_user.inspect
     render json: @current_user.to_json
+  end
+
+  def info
+    @user = User.where(id: params[:id]).pluck(:id, :name)
+    render json: @user.to_json
   end
 
   private
