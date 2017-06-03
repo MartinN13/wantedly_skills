@@ -4,6 +4,7 @@ class Profile extends React.Component {
     this.state = {
       user: '',
       skills: '',
+      userSkills: '',
       endorsements: '',
       loaded: false
     };
@@ -18,6 +19,7 @@ class Profile extends React.Component {
       success: result => {
         this.setState({user: result.user});
         this.setState({skills: result.skills});
+        this.setState({userSkills: result.userSkills})
         this.setState({endorsements: result.endorsements});
         this.setState({loaded: true});
       },
@@ -36,7 +38,8 @@ class Profile extends React.Component {
             <div className="profile column col-12">
               <div className="panel">
                 <UserInfo user={this.state.user} />
-                <UserSkills user={this.state.user} skills={this.state.skills} endorsements={this.state.endorsements} />
+                <UserSkills user={this.state.user} skills={this.state.skills} 
+                            userSkills={this.state.userSkills} endorsements={this.state.endorsements} />
               </div>
             </div>
           </section>

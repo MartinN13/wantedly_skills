@@ -4,6 +4,7 @@ class UserSkills extends React.Component {
     this.state = {
       user: this.props.user,
       skills: this.props.skills,
+      userSkills: this.props.userSkills,
       endorsements: this.props.endorsements,
       addSkills: false,
       value: '',
@@ -76,10 +77,12 @@ class UserSkills extends React.Component {
     let skills = this.state.skills.map((skill, index) => {
       return (
         <div key={index} className="tile tile-centered">
-          <UserEndorsementCount skill={skill} endorsements={this.state.endorsements} />
-          <label className="chip">{skill.name}
-            <button className="btn btn-clear" onClick={this.removeSkills}></button>
-          </label>
+          <UserEndorsementCount skill={skill} userSkills={this.state.userSkills} endorsements={this.state.endorsements} />
+          <div className="tile-content">
+            <label className="chip">{skill.name}
+              <button className="btn btn-clear" onClick={this.removeSkills}></button>
+            </label>
+          </div>
         </div>
       )
     });
