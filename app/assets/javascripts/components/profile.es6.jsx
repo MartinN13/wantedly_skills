@@ -4,7 +4,8 @@ class Profile extends React.Component {
     this.state = {
       user: '',
       skills: '',
-      endorsements: ''
+      endorsements: '',
+      loaded: false
     };
   }
   componentDidMount() {
@@ -18,6 +19,7 @@ class Profile extends React.Component {
         this.setState({user: result.user});
         this.setState({skills: result.skills});
         this.setState({endorsements: result.endorsements});
+        this.setState({loaded: true});
       },
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
@@ -26,7 +28,7 @@ class Profile extends React.Component {
   }
   render() {
     /* return when ajax call and setState is finished */
-    if (this.state.endorsements.length !== 0) {
+    if (this.state.loaded) {
       return (
         <div className="content">
           <Navbar user={this.state.user} />
