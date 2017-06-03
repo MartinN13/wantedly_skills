@@ -12,6 +12,7 @@ class SiteController < ApplicationController
       render component: 'Login', props: {url: '/authenticate'}
     end
   end
+  
   def users
     render component: 'Users', props: {url: '/api/v1/users'}
   end

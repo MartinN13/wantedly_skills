@@ -31,6 +31,7 @@ class LoginForm extends React.Component {
         location.reload();
       },
       error: (xhr, status, err) => {
+        /* show error to user */
         console.error(this.props.url, status, err.toString());
       }
     });
