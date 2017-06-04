@@ -11,6 +11,10 @@ class Profile extends React.Component {
     };
   }
   componentDidMount() {
+    if (!window.localStorage.getItem('auth_token')) {
+       window.location.href = "/";
+    }
+    
     $.ajax({
       url: this.props.url,
       beforeSend(xhr) { 
@@ -31,7 +35,6 @@ class Profile extends React.Component {
     });
   }
   render() {
-    /* return when ajax call and setState is finished */
     if (this.state.loaded) {
       return (
         <div className="content">

@@ -3,7 +3,11 @@ class SitesController < ApplicationController
 
   def index
     if params[:id].present?
-      render component: 'Profile', props: {url: '/api/v1/users/' + params[:id]}
+      if User.exists? id: params[:id]
+        render component: 'Profile', props: {url: '/api/v1/users/' + params[:id]}
+      else
+        render component: 'Login'
+      end
     else
       render component: 'Login'
     end

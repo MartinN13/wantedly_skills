@@ -29,7 +29,7 @@ class Login extends React.Component {
   render() {
     if (this.state.loaded) {
       if (this.state.loggedIn) {
-        return <Profile url={'api/v1/users/' + this.state.user} />
+        return <Profile url={'/api/v1/users/' + this.state.user} />
       } else {
         return <LoginForm url={'/authenticate'} />
       }
