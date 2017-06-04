@@ -22,10 +22,10 @@ class Api::V1::UserSkillsController < ApplicationController
       if UserSkill.where(user_id: skill_params[:user_id], skill_id: @skill_id[0]).destroy_all
         render json: User.find(skill_params[:user_id]).skills
       else
-        puts "Couldn't destroy!"
+        render json: { error: "Couldn't destroy"}, :status => 422
       end
     else
-      puts 'Skill not found!'
+      render json: { error: 'Skill not found'}, :status => 422
     end
 
     # Remove all endorsements
