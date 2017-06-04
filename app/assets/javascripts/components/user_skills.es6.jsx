@@ -81,7 +81,9 @@ class UserSkills extends React.Component {
         <div key={index} className="tile tile-centered">
           <div className="tile-content">
             <label className="chip" data-skill-id={skill.id}>{skill.name}
-              <button className="btn btn-clear" onClick={this.removeSkills}></button>
+              {this.props.currentUser.id == this.props.user.id &&
+                <button className="btn btn-clear" onClick={this.removeSkills}></button>
+              }
             </label>
             <UserEndorsements user={this.state.user} currentUser={this.state.currentUser} skill={skill} userSkills={this.state.userSkills} endorsements={this.state.endorsements} />
           </div>
