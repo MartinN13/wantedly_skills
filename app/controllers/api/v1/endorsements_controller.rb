@@ -6,7 +6,7 @@ class Api::V1::EndorsementsController < ApplicationController
     if @endorsement.save
       render json: User.find(endorsement_params[:user_profile_id]).endorsements
     else
-      render json: {:errors => @endorsement.errors.messages}, :status => 422
+      render json: "Couldn't add endorsement", :status => 422
     end
   end
 
@@ -16,7 +16,7 @@ class Api::V1::EndorsementsController < ApplicationController
     if @endorsement.destroyed?
       render json: User.find(endorsement_params[:user_profile_id]).endorsements
     else
-      render json: {:errors => @endorsement.errors.messages}, :status => 422
+      render json: "Couldn't remove endorsement", :status => 422
     end
   end
 

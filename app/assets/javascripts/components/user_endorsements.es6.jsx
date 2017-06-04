@@ -84,7 +84,6 @@ class UserEndorsements extends React.Component {
       }
     });
 
-
     return (
       <div className="endorsements tile-content">
         <div className="endorsement-count tile-icon">
@@ -95,5 +94,3 @@ class UserEndorsements extends React.Component {
     )
   }
 }
-
-

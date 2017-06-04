@@ -5,7 +5,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:skills, :endorsements).find(params[:id])
+    @user = User.includes(:skills, :user_skills, :endorsements).find(params[:id])
     @skills = @user.skills
     @userSkills = @user.user_skills
     @endorsements = @user.endorsements

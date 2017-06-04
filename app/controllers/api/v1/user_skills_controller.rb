@@ -1,31 +1,46 @@
 class Api::V1::UserSkillsController < ApplicationController
   def create
-    if Skill.where(name: skill_params[:skill_name]).exists? and User.find(skill_params[:user_id]).present?
-      @skill_id = Skill.where(name: skill_params[:skill_name]).pluck(:id)
-      @user_skill = UserSkill.new(user_id: skill_params[:user_id], skill_id: @skill_id[0])
+    @skill = Skill.find_by(name: user_skill_params[:skill_name])
 
+    if @skill
+      @user_skill = UserSkill.new(user_id: user_skill_params[:user_profile_id], 
+                                  skill_id: @skill[:id])
       if @user_skill.save
-        render json: User.find(skill_params[:user_id]).skills
+        @user = User.includes(:skills, :user_skills).find(user_skill_params[:user_profile_id])
+
+        if @user
+          @skills = @user.skills
+          @user_skills = @user.user_skills
+  
+          render :json => {skills: @skills,
+                           userSkills: @user_skills}
+        else
+          render json: "Couldn't find user", :status => 422
+        end
       else
-        render json: {:errors => @user_skill.errors.messages}, :status => 422
+        render json: "Couldn't add skill", :status => 422
       end
     else
-      render json: { error: 'Skill not found'}, :status => 422
+      render json: "Couldn't find skill", :status => 422
     end
   end
 
   def destroy
-    # Remove skill from user
-    if Skill.where(name: skill_params[:skill_name]).exists? and User.find(skill_params[:user_id]).present?
-      @skill_id = Skill.where(name: skill_params[:skill_name]).pluck(:id)
+    @user_skill = UserSkill.find(user_skill_params[:id]).destroy
 
-      if UserSkill.where(user_id: skill_params[:user_id], skill_id: @skill_id[0]).destroy_all
-        render json: User.find(skill_params[:user_id]).skills
+    if @user_skill.destroyed?
+      @user = User.includes(:skills, :user_skills).find(user_skill_params[:user_profile_id])
+      if @user
+        @skills = @user.skills
+        @user_skills = @user.user_skills
+
+        render :json => {skills: @skills,
+                         userSkills: @user_skills}
       else
-        render json: { error: "Couldn't destroy"}, :status => 422
+        render json: "Couldn't find user", :status => 422
       end
     else
-      render json: { error: 'Skill not found'}, :status => 422
+      render json: "Couldn't remove skill", :status => 422
     end
 
     # Remove all endorsements
@@ -33,7 +48,7 @@ class Api::V1::UserSkillsController < ApplicationController
 
   private
 
-    def skill_params
-      params.permit(:user_id, :skill_name, :format)
+    def user_skill_params
+      params.permit(:id, :user_profile_id, :skill_name, :format)
     end
 end

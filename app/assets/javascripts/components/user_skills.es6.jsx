@@ -2,28 +2,26 @@ class UserSkills extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user,
-      currentUser: this.props.currentUser,
       skills: this.props.skills,
       userSkills: this.props.userSkills,
       endorsements: this.props.endorsements,
-      addSkills: false,
+      addSkill: false,
       value: '',
       error: ''
     };
 
-  this.addSkills = this.addSkills.bind(this);
-  this.removeSkills = this.removeSkills.bind(this);
+  this.addSkill = this.addSkill.bind(this);
+  this.removeSkill = this.removeSkill.bind(this);
   this.cancelSkills = this.cancelSkills.bind(this);
   this.handleInputChange = this.handleInputChange.bind(this);
   this.handleError = this.handleError.bind(this);
   }
-  addSkills() {
-    if (this.state.addSkills) {
+  addSkill(e) {
+    if (this.state.addSkill) {
       $.ajax({
         method: 'POST',
         data: {
-          user_id: this.state.user.id,
+          user_profile_id: this.props.user.id,
           skill_name: this.state.value
         },
         url: '/api/v1/user_skills',
@@ -32,65 +30,59 @@ class UserSkills extends React.Component {
         },
         dataType: 'json',
         success: result => {
-          this.setState({skills: result});
+          this.setState({userSkills: result.userSkills});
+          this.setState({skills: result.skills});
           this.setState({value: ''});
         },
-        error: (result, xhr, status) => {
-          console.error(result.responseJSON.error);
-          this.setState({error: result.responseJSON.error});
+        error: result => {
+          this.setState({error: result.responseText});
+          this.setState({value: ''});
         }
       });
     } else {
-      this.setState({addSkills: true});
+      this.setState({addSkill: true});
     }
   }
-  removeSkills(e) {
-    $.ajax({
-      method: 'DELETE',
-      data: {
-        user_id: this.state.user.id,
-        skill_name: e.target.parentElement.textContent
-      },
-      url: '/api/v1/user_skills',
-      beforeSend(xhr) { 
-        xhr.setRequestHeader('Authorization', window.localStorage.getItem('auth_token'));
-      },
-      dataType: 'json',
-      success: result => {
-        this.setState({skills: result});
-      },
-      error: (result, xhr, status) => {
-        console.error(result.responseJSON.error);
-        this.setState({error: result.responseJSON.error});
-      }
-    });
+  removeSkill(e) {
+    if (this.props.currentUser.id == this.props.user.id) {
+      $.ajax({
+        method: 'DELETE',
+        data: {
+          id: e.target.parentElement.getAttribute('data-user-skill-id'),
+          user_profile_id: this.props.user.id
+        },
+        url: '/api/v1/user_skills',
+        beforeSend(xhr) { 
+          xhr.setRequestHeader('Authorization', window.localStorage.getItem('auth_token'));
+        },
+        dataType: 'json',
+        success: result => {
+          this.setState({skills: result.skills});
+          this.setState({userSkills: result.userSkills});
+        },
+        error: result => {
+          this.setState({error: result.responseText});
+          this.setState({value: ''});
+        }
+      });
+    }
   }
   cancelSkills() {
-    this.setState({addSkills: false});
+    this.setState({addSkill: false});
   }
   handleInputChange(e) {
-    /* implement autocomplete */
     this.setState({value: e.target.value});
   }
   handleError() {
     this.setState({error: ''});
   }
   render() {
-    let skills = this.state.skills.map((skill, index) => {
-      return (
-        <div key={index} className="tile tile-centered">
-          <div className="tile-content">
-            <label className="chip" data-skill-id={skill.id}>{skill.name}
-              {this.props.currentUser.id == this.props.user.id &&
-                <button className="btn btn-clear" onClick={this.removeSkills}></button>
-              }
-            </label>
-            <UserEndorsements user={this.state.user} currentUser={this.state.currentUser} skill={skill} userSkills={this.state.userSkills} endorsements={this.state.endorsements} />
-          </div>
-        </div>
-      )
+    let skills = [];
+    this.state.skills.forEach((skill, index) => {
+      skills.push(<UserSkill key={index} removeSkill={this.removeSkill} skill={skill} userSkills={this.state.userSkills} user={this.props.user}
+                             currentUser={this.props.currentUser} endorsements={this.props.endorsements} />);
     });
-  
+
     return (
       <div className="panel-body">
         <div className="panel-title mt-10">Skills</div>
@@ -101,13 +93,13 @@ class UserSkills extends React.Component {
           </div>
         }
         {skills}
-        {this.state.addSkills &&
+        {this.state.addSkill &&
           <div className="tile tile-centered">
             <input className="form-input" type="text" placeholder="JavaScript" value={this.state.value} onChange={this.handleInputChange}></input>
           </div>
         }
-        <button onClick={this.addSkills} className="btn btn-primary">Add</button>
-        {this.state.addSkills && 
+        <button onClick={this.addSkill} className="btn btn-primary">Add</button>
+        {this.state.addSkill && 
           <button onClick={this.cancelSkills} className="btn btn-link">Cancel</button>
         }
       </div>

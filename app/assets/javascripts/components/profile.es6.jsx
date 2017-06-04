@@ -29,8 +29,8 @@ class Profile extends React.Component {
         this.setState({endorsements: result.endorsements});
         this.setState({loaded: true});
       },
-      error: (xhr, status, err) => {
-        console.error(this.props.url, status, err.toString());
+      error: result => {
+        this.setState({error: result.responseText});
       }
     });
   }
