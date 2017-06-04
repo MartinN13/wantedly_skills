@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # Site routes
   get 'users', to: 'sites#users'
   get 'users/:id', to: 'sites#index'
+  get 'skills', to: 'sites#skills'
 
   # Authenticate users
   post 'authenticate', to: 'authentication#authenticate'
@@ -28,6 +29,9 @@ Rails.application.routes.draw do
       # Add/remove endorsements
       post 'endorsements', to: 'endorsements#create'
       delete 'endorsements', to: 'endorsements#destroy'
+
+      # Create skills
+      post 'skills', to: 'skills#create'
     end
   end
 end

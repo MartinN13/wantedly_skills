@@ -16,4 +16,8 @@ class SitesController < ApplicationController
   def users
     render component: 'Users', props: {url: '/api/v1/users'}
   end
+
+  def skills
+    render component: 'Skills', props: {url: '/api/v1/skills'}
+  end
 end
