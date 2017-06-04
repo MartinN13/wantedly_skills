@@ -9,10 +9,16 @@ class Navbar extends React.Component {
         <nav className="navbar grid-header container grid-96">
           <section className="navbar-section">
             <a href="/" className="navbar-brand mr-10">Skills app</a>
-            <a href="#" className="btn btn-link">Profile</a>
+            {this.props.currentUser &&
+              <a href={'/users/' + this.props.currentUser.id} className="btn btn-link">Profile</a>
+            }
           </section>
           <section className="navbar-section">
-            <a onClick={this.logOut} href="#" className="btn btn-link">Log out</a>
+            {this.props.currentUser ? (
+              <a onClick={this.logOut} href="#" className="btn btn-link">Log out</a>
+            ) : (
+              <a href="/" className="btn btn-link">Log in</a>
+            )}
           </section>
         </nav>
       </section>

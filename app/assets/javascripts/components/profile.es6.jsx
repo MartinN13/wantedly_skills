@@ -14,7 +14,7 @@ class Profile extends React.Component {
     if (!window.localStorage.getItem('auth_token')) {
        window.location.href = "/";
     }
-    
+
     $.ajax({
       url: this.props.url,
       beforeSend(xhr) { 
@@ -38,7 +38,7 @@ class Profile extends React.Component {
     if (this.state.loaded) {
       return (
         <div className="content">
-          <Navbar user={this.state.user} />
+          <Navbar user={this.state.user} currentUser={this.state.currentUser} />
           <section className="section-profile">
             <div className="profile column col-12">
               <div className="panel">
