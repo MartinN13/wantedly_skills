@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
       # Add/remove endorsements
       post 'endorsements', to: 'endorsements#create'
+      delete 'endorsements', to: 'endorsements#destroy'
     end
   end
 end

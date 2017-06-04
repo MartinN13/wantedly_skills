@@ -10,9 +10,19 @@ class Api::V1::EndorsementsController < ApplicationController
     end
   end
 
+  def destroy
+    @endorsement = Endorsement.find(endorsement_params[:id]).destroy
+
+    if @endorsement.destroyed?
+      render json: User.find(endorsement_params[:user_profile_id]).endorsements
+    else
+      render json: {:errors => @endorsement.errors.messages}, :status => 422
+    end
+  end
+
   private
 
     def endorsement_params
-      params.permit(:user_profile_id, :user_id, :user_skill_id, :format)
+      params.permit(:id, :user_profile_id, :user_id, :user_skill_id, :format)
     end
 end
