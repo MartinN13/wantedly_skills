@@ -1,6 +1,5 @@
 class UserSkill extends React.Component {
   render() {
-    console.log(this.props.currentUser);
     const userSkillId = this.props.userSkills.filter(userSkill => userSkill.skill_id == this.props.skill.id);
     return (
       <div className="tile tile-centered">

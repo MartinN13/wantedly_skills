@@ -23,10 +23,11 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
     if @user.save
       # Successful save
     else
-      render 'new'
+      # Not successful
     end
   end
 

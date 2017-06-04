@@ -92,7 +92,7 @@ class UserEndorsements extends React.Component {
     let className = 'avatar avatar-lg';
     let dataBadge = '';
 
-    if (this.props.currentUser.id !== this.props.user.id && currentUserEndorsement) {
+    if (this.props.currentUser.id !== this.props.user.id && !currentUserEndorsement) {
       className = 'avatar avatar-lg badge';
       dataBadge = '+';
     }

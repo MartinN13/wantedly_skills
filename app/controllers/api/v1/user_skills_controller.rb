@@ -29,7 +29,9 @@ class Api::V1::UserSkillsController < ApplicationController
     @user_skill = UserSkill.find(user_skill_params[:id]).destroy
 
     if @user_skill.destroyed?
+      @endorsement = Endorsement.where(user_skill_id: user_skill_params[:id]).destroy_all
       @user = User.includes(:skills, :user_skills).find(user_skill_params[:user_profile_id])
+      
       if @user
         @skills = @user.skills
         @user_skills = @user.user_skills
@@ -42,8 +44,6 @@ class Api::V1::UserSkillsController < ApplicationController
     else
       render json: "Couldn't remove skill", :status => 422
     end
-
-    # Remove all endorsements
   end
 
   private
