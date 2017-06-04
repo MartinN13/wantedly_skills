@@ -16,6 +16,8 @@
 }
 .tile-content {
   display: flex;
+  align-items: center;
+  overflow: initial !important;
 }
 .endorsements {
   display: flex;
@@ -26,6 +28,9 @@
   border-top: 1px solid #f0f1f4;
   height: 1px;
   margin: 0 1rem;
+}
+.avatar {
+  font-size: 1.4rem !important;
 }
 .toast {
   margin: 1.5rem 0;

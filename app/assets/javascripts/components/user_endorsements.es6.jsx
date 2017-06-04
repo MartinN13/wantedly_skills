@@ -71,23 +71,36 @@ class UserEndorsements extends React.Component {
     });
 
     if (endorsements.length > 0) {
-        endorsements.unshift(<div className="separator"></div>);
+        endorsements.unshift(<div key="999" className="separator"></div>);
       }
 
+    let currentUserEndorsement = false;
     let endorsementCount = 0;
     this.state.endorsements.forEach((endorsement, index) => {
       const userSkillId = endorsement.user_skill_id;
       const userSkill = this.props.userSkills.filter(x => x.id === userSkillId);
+
+      if (this.props.currentUser.id == endorsement.user_id) {
+        currentUserEndorsement = true;
+      }
 
       if (userSkill[0].skill_id == this.props.skill.id) {
         endorsementCount++;
       }
     });
 
+    let className = 'avatar avatar-lg';
+    let dataBadge = '';
+
+    if (this.props.currentUser.id !== this.props.user.id && currentUserEndorsement) {
+      className = 'avatar avatar-lg badge';
+      dataBadge = '+';
+    }
+
     return (
       <div className="endorsements tile-content">
         <div className="endorsement-count tile-icon">
-          <figure onClick={this.addEndorsement} className="avatar avatar-sm" data-initial={endorsementCount}></figure>
+          <figure onClick={this.addEndorsement} className={className} data-badge={dataBadge} data-initial={endorsementCount}></figure>
         </div>
         {endorsements}
       </div>
