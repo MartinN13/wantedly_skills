@@ -1,4 +1,4 @@
-class Skills extends React.Component {
+class AddSkills extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,6 +40,7 @@ class Skills extends React.Component {
   render () {
     return (
       <div className="content">
+        <Navbar />
         <div className="column col-12">
           <h1>Add skill</h1>
           {this.state.message && 

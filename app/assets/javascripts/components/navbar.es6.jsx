@@ -12,13 +12,14 @@ class Navbar extends React.Component {
             {this.props.currentUser &&
               <a href={'/users/' + this.props.currentUser.id} className="btn btn-link">Profile</a>
             }
+            <a href="/users/" className="btn btn-link">Users</a>
+            <a href="/skills/" className="btn btn-link">Skills</a>
+            <a href="/addSkills/" className="btn btn-link">Add skills</a>
           </section>
           <section className="navbar-section">
-            {this.props.currentUser ? (
+            {this.props.currentUser && 
               <a onClick={this.logOut} href="#" className="btn btn-link">Log out</a>
-            ) : (
-              <a href="/" className="btn btn-link">Log in</a>
-            )}
+            }
           </section>
         </nav>
       </section>

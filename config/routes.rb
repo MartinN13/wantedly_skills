@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'users', to: 'sites#users'
   get 'users/:id', to: 'sites#index'
   get 'skills', to: 'sites#skills'
+  get 'addSkills', to: 'sites#addSkills'
 
   # Authenticate users
   post 'authenticate', to: 'authentication#authenticate'
@@ -30,7 +31,8 @@ Rails.application.routes.draw do
       post 'endorsements', to: 'endorsements#create'
       delete 'endorsements', to: 'endorsements#destroy'
 
-      # Create skills
+      # Create skill
+      get 'skills', to: 'skills#show'
       post 'skills', to: 'skills#create'
     end
   end

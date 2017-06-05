@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   
     def authenticate_request
       @current_user = AuthorizeApiRequest.call(request.headers).result
-      render json: { error: 'Log in to continue' }, status: 401 unless @current_user
+      render json: 'Log in to continue', status: 401 unless @current_user
     end
 end

@@ -1,8 +1,8 @@
-class Users extends React.Component {
+class Skills extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: ''
+      skills: ''
     };
   }
   componentDidMount() {
@@ -13,12 +13,12 @@ class Users extends React.Component {
       },
       dataType: 'json',
       success: result => {
-        users = result.map((user, index) => {
+        skills = result.map((skill, index) => {
           return (
-            <User key={index} user={user} />
+            <Skill key={index} skill={skill} />
           )
         });
-        this.setState({users: users});
+        this.setState({skills: skills});
       },
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
@@ -30,16 +30,14 @@ class Users extends React.Component {
       <div className="content">
         <Navbar />
         <div className="column col-12">
-          <h1>Users</h1>
+          <h1>Skills</h1>
           <table className="table table-striped table-hover user">
             <thead>
               <tr>
-                <th>id</th>
                 <th>name</th>
-                <th>email</th>
               </tr>
             </thead>
-            <tbody>{this.state.users}</tbody>
+            <tbody>{this.state.skills}</tbody>
           </table>
         </div>
       </div>

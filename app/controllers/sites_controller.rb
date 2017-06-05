@@ -20,4 +20,8 @@ class SitesController < ApplicationController
   def skills
     render component: 'Skills', props: {url: '/api/v1/skills'}
   end
+
+  def addSkills
+    render component: 'AddSkills', props: {url: '/api/v1/skills'}
+  end
 end
