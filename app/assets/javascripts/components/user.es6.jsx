@@ -3,7 +3,7 @@ class User extends React.Component {
     return (
       <tr className="active">
         <td>{this.props.user.id}</td>
-        <td>{this.props.user.name}</td>
+        <td><a href={'/users/' + this.props.user.id}>{this.props.user.name}</a></td>
         <td>{this.props.user.email}</td>
       </tr>
     );

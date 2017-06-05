@@ -27,20 +27,20 @@ class Users extends React.Component {
   }
   render() {
     return (
-      <div className="users">
-        <h1>Users</h1>
-        <table className="table table-striped table-hover user">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>name</th>
-              <th>email</th>
+      <div className="content">
+        <div className="column col-12">
+          <h1>Users</h1>
+          <table className="table table-striped table-hover user">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>email</th>
               </tr>
-          </thead>
-          <tbody>
-            {this.state.users}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>{this.state.users}</tbody>
+          </table>
+        </div>
       </div>
     )
   }
