@@ -18,6 +18,7 @@ class UserEndorsements extends React.Component {
         data: {
           user_profile_id: this.props.user.id,
           user_id: this.props.currentUser.id,
+          user_name: this.props.currentUser.name,
           user_skill_id: userSkillId[0].id
         },
         url: '/api/v1/endorsements',

@@ -1,6 +1,6 @@
 class Api::V1::EndorsementsController < ApplicationController
   def create
-    @endorsement = Endorsement.new(user_id: endorsement_params[:user_id], 
+    @endorsement = Endorsement.new(user_id: endorsement_params[:user_id], user_name: endorsement_params[:user_name],
                                    user_skill_id: endorsement_params[:user_skill_id])
 
     if @endorsement.save
@@ -23,6 +23,6 @@ class Api::V1::EndorsementsController < ApplicationController
   private
 
     def endorsement_params
-      params.permit(:id, :user_profile_id, :user_id, :user_skill_id, :format)
+      params.permit(:id, :user_profile_id, :user_id, :user_name, :user_skill_id, :format)
     end
 end
